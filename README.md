@@ -1,73 +1,125 @@
-# React + TypeScript + Vite
+Overview
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a React-based dashboard designed for user (student) management. It includes authentication (login/signup), a splash screen, global state management, and a dynamic table to display and manage users. The app emphasizes UX-friendly features like popups, modals, and persistent storage.
 
-Currently, two official plugins are available:
+Features
+1. Authentication
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Login Page: Users enter email and password to log in. Credentials are saved locally for future logins. Success and error notifications are displayed through popup alerts.
 
-## React Compiler
+Signup Page: Users can create a new account by entering full name, email, and password. Successful registration redirects to the login page, and credentials are stored locally.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+2. Splash Screen
 
-## Expanding the ESLint configuration
+A splash screen is shown when the dashboard initializes.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Displays a welcome message and loading indicator while the app prepares the main interface.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Duration and display are controlled using timers.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+3. Main Layout
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Core layout includes a Navbar, Sidebar, Main Content Area, and Footer.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Responsive grid layout organizes the dashboard efficiently.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Sidebar can be toggled to hide or show.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Includes integration with a student addition popup/stepper.
+
+4. Navbar
+
+Displays the application title.
+
+Navigation links: Home, Add Student, Logout.
+
+Add Student triggers a popup stepper to add new users to the table.
+
+Logout triggers a callback to return to the login page.
+
+5. User Table
+
+Displays users/students with their email and password.
+
+Dynamic updates when new users are added through either popup stepper or inline addition.
+
+Styled using a table with alternating row colors for readability.
+
+6. Student Popup Stepper
+
+Provides a modal or stepper interface to add students.
+
+Collects student information (first name, last name) and adds it to the global user table.
+
+Integrated with the main layout for seamless UX.
+
+7. Global State Management
+
+React Context is used to manage user state globally across the application.
+
+Users added are available in all components that consume the context.
+
+Facilitates centralized updates and avoids prop-drilling.
+
+8. Persistent Storage
+
+LocalStorage is used to save login and signup credentials.
+
+Data is stored in JSON format for easy retrieval.
+
+Credentials are loaded automatically when the user revisits the login page.
+
+9. Notifications and Popups
+
+Popups inform users of:
+
+Login success or failure.
+
+Signup success or failure.
+
+Adding a student.
+
+Enhances UX and gives immediate feedback to user actions.
+
+10. Styling and Design
+
+Tailwind CSS is used for responsive and modern styling.
+
+Splash screen, popups, table, and buttons follow a consistent theme.
+
+Colors and typography are chosen for clarity and readability.
+
+11. Backend Integration
+
+Connects to a backend server for login and signup endpoints.
+
+Sends POST requests to validate credentials or create new accounts.
+
+Handles server responses to provide user feedback.
+
+12. Dependencies and Tools
+
+React: Functional components and hooks (useState, useEffect, useContext).
+
+React Router Dom: For page navigation.
+
+Material-UI: Popups, alerts, stepper/modal.
+
+Tailwind CSS: Styling.
+
+LocalStorage: Persistent credential storage.
+
+13. User Flow
+
+User opens the app → splash screen displays.
+
+User navigates to Login or Signup page.
+
+Credentials are saved to local storage.
+
+Upon login, user is redirected to the dashboard.
+
+Dashboard shows a table of users and provides the ability to add new students via a popup stepper.
+
+Logout returns the user to the login page.
+
